@@ -20,7 +20,7 @@ function App() {
         <Timer />
         <Text fontSize="1.8rem">{guessedItems.length}/151</Text>
       </HStack>
-      {status === "started" && (
+      {(status === "started" || status === "finished") && (
         <Grid templateColumns="repeat(17, 1fr)" gap="1rem">
           {pokemons.map((pokemon, index) => (
             <Pokemon
@@ -39,12 +39,6 @@ function App() {
         >
           Start Challenge
         </Button>
-      )}
-      {status === "finished" && (
-        <Stack spacing="1rem">
-          <Text>You've finished!</Text>
-          <Text>You've guessed {guessedItems.length} pokemons</Text>
-        </Stack>
       )}
     </Box>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Stack, Text } from "@chakra-ui/react";
+import { useAppState } from "../AppContext";
 
 interface PokemonProps {
   index: number;
@@ -7,6 +8,7 @@ interface PokemonProps {
 }
 
 function Pokemon({ isGuessed, index }: PokemonProps) {
+  const { status } = useAppState();
   return (
     <Stack
       width={75}
@@ -16,7 +18,7 @@ function Pokemon({ isGuessed, index }: PokemonProps) {
       borderRadius="50%"
       boxShadow="0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20)"
     >
-      {isGuessed ? (
+      {isGuessed || status === "finished" ? (
         <Image
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             index + 1
