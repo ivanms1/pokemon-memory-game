@@ -2,19 +2,26 @@ import React, { useState } from "react";
 import { Input as ChakraInput } from "@chakra-ui/react";
 
 import pokemons from "../../assets/pokemon.json";
+import { useAppDispatch } from "../AppContext";
 
 interface InputProps {
   guessedPokemon: string[];
-  setGuessedPokemon: (pokemons: string[]) => void;
 }
 
-function Input({ guessedPokemon, setGuessedPokemon }: InputProps) {
+function Input({ guessedPokemon }: InputProps) {
   const [input, setInput] = useState("");
+
+  const dispatch = useAppDispatch();
+
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInput(value);
-    if (pokemons.includes(value) && !guessedPokemon.includes(value)) {
-      setGuessedPokemon([...guessedPokemon, value]);
+    const loweredCaseValue = value.toLowerCase();
+    if (
+      pokemons.includes(loweredCaseValue) &&
+      !guessedPokemon.includes(loweredCaseValue)
+    ) {
+      dispatch({ type: "ADD_GUESSED_ITEM", payload: loweredCaseValue });
       setInput("");
     }
   };
